@@ -1,0 +1,2 @@
+D:\IvyModa Project\Git IvyModa DW Web\DataWarehouse-IVYmoda\Web\source code\monitor\ConsoleOutput\ConsoleOutput\bin\Release\net8.0\publish\win-x64\ConsoleOutput.pdb
+D:\IvyModa Project\Git IvyModa DW Web\DataWarehouse-IVYmoda\Web\source code\monitor\ConsoleOutput\ConsoleOutput\bin\Release\net8.0\publish\win-x64\ConsoleOutput.exe

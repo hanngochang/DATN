@@ -1,0 +1,22 @@
+# Build output folders
+bin/
+obj/
+publish/
+
+# PostgreSQL data
+airflow/postgres-data/
+
+# Power BI dashboards
+*.pbix
+
+# VS project settings and logs
+*.user
+*.config
+
+# CSV data files
+*.csv
+
+# Logs, temp, and backup
+*.log
+*.tmp
+*.bak

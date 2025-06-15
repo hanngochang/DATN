@@ -41,11 +41,11 @@ Sơ đồ dưới đây mô tả luồng hoạt động và sự tương tác gi
 | **Lưu trữ (Storage)** | **MySQL** | `-` | Lưu trữ dữ liệu gốc (staging) và các Data Mart đã xử lý, là nguồn dữ liệu chính cho các báo cáo. |
 | **Web Frontend** | **Angular** | `14.21.3` | Xây dựng giao diện người dùng tương tác, hiển thị các báo cáo và dashboard. |
 | **Web Backend** | **.NET 6 (ASP.NET Core)** | `6.x` | Phát triển API backend cung cấp dữ liệu cho frontend và quản lý các logic nghiệp vụ. |
-| **Công cụ phát triển Backend** | **Visual Studio** | `[Phiên bản VS bạn đang dùng]` | Môi trường phát triển tích hợp (IDE) chính cho việc phát triển và gỡ lỗi ứng dụng .NET Core. |
-| **Bộ đệm (Caching)** | **Redis** | `[Phiên bản Redis bạn đang dùng]` | Cung cấp cơ chế bộ đệm trong backend để tăng tốc độ truy xuất dữ liệu và giảm tải cho database. |
+| **Công cụ phát triển Backend** | **Visual Studio** | `-` | Môi trường phát triển tích hợp (IDE) chính cho việc phát triển và gỡ lỗi ứng dụng .NET Core. |
+| **Bộ đệm (Caching)** | **Redis** | `5.0.14.1` | Cung cấp cơ chế bộ đệm trong backend để tăng tốc độ truy xuất dữ liệu và giảm tải cho database. |
 | **Tự động hóa (Orchestration & Automation)** | **Apache Airflow** | `3.0.1` | Lập lịch và tự động hóa các quy trình ETL hàng ngày để xử lý và cập nhật dữ liệu vào Data Mart. |
 | **Tự động hóa Báo cáo (BI Automation)** | **Power BI Gateway** | `-` | Đảm bảo kết nối an toàn và tự động refresh dữ liệu từ Data Mart lên Power BI Service theo lịch trình hàng ngày. |
-| **Trực quan hóa & BI (Visualization & BI)** | **Power BI** | `[Phiên bản Power BI bạn đang dùng]` | Công cụ Business Intelligence để xây dựng các mô hình phân tích, báo cáo và dashboard trực quan từ Data Mart. |
+| **Trực quan hóa & BI (Visualization & BI)** | **Power BI** | `-` | Công cụ Business Intelligence để xây dựng các mô hình phân tích, báo cáo và dashboard trực quan từ Data Mart. |
 
 ---
 

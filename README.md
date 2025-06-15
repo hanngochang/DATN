@@ -110,8 +110,6 @@ Luồng dữ liệu trong hệ thống của chúng tôi được tổ chức th
 │   │   ├── angular.json        # Cấu hình dự án Angular
 │   │   ├── package.json        # Danh sách dependencies của Angular
 │   │   └── ...                 # Các file và thư mục khác của dự án Angular
-│   ├── monitor/                # (Tùy chọn: Chứa các script hoặc công cụ giám sát nếu có)
-│   ├── nssm-2.24/              # Công cụ Non-Sucking Service Manager (có thể dùng để chạy dịch vụ Windows)
 └── README.md                   # Tệp README chính của toàn bộ dự án
 ```
 

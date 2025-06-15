@@ -83,7 +83,111 @@ Luồng dữ liệu trong hệ thống của chúng tôi được tổ chức th
 ## 5. Cấu trúc Thư mục
 
 ```
+Dưới đây là phiên bản hoàn chỉnh của README.md của bạn, tích hợp tất cả các phần mà chúng ta đã thảo luận và điều chỉnh dựa trên cấu trúc thư mục thực tế bạn cung cấp.
 
+Bạn có thể sao chép và dán nội dung này trực tiếp vào tệp README.md trong dự án của mình. Hãy nhớ thay thế [Tên Dự Án Của Bạn] và các placeholder [Phiên bản ... bạn đang dùng] hoặc [dán_url_clone_của_bạn_vào_đây] bằng thông tin thực tế của bạn.
+
+Markdown
+
+# [Tên Dự Án Của Bạn]
+
+Dự án này là một hệ thống báo cáo dữ liệu toàn diện, được thiết kế để tự động hóa quy trình từ xử lý dữ liệu đến tạo báo cáo hàng ngày, phục vụ nhu cầu phân tích dữ liệu kinh doanh và vận hành.
+
+## 1. Giới thiệu
+
+Dự án này tập trung vào việc **xây dựng một hệ thống báo cáo dữ liệu hiện đại**, phục vụ nhu cầu phân tích dữ liệu kinh doanh và vận hành. Hệ thống được thiết kế để tự động hóa toàn bộ quy trình từ khâu xử lý dữ liệu đến việc tạo ra các báo cáo hàng ngày, cung cấp cái nhìn sâu sắc và kịp thời cho các hoạt động nghiệp vụ.
+
+**Hệ thống có khả năng:**
+
+* **Xử lý và chuyển đổi dữ liệu tự động:** Tự động hóa các bước làm sạch, chuẩn hóa và chuyển đổi dữ liệu để đảm bảo chất lượng và tính sẵn sàng cho phân tích.
+* **Lưu trữ và quản lý dữ liệu hiệu quả:** Đảm bảo dữ liệu được lưu trữ một cách có tổ chức và dễ dàng truy cập cho các mục đích báo cáo.
+* **Cung cấp khả năng phân tích và trực quan hóa mạnh mẽ:** Đảm bảo dữ liệu dễ dàng được truy vấn và biến thành các báo cáo trực quan, dễ hiểu.
+
+**Mục tiêu chính của hệ thống:**
+
+* **Tự động hóa Quy trình Báo cáo:** Xây dựng một quy trình tự động hoàn chỉnh từ khi dữ liệu sẵn sàng để xử lý, cho đến khi dữ liệu sẵn sàng cho phân tích và lên báo cáo hàng ngày.
+* **Hỗ trợ Phân tích Kinh doanh & Vận hành:** Cung cấp các báo cáo và dashboard hàng ngày giúp phân tích hiệu suất, nhận diện xu hướng và hỗ trợ ra quyết định.
+* **Sử dụng công cụ hiệu quả:** Tận dụng sức mạnh của các công cụ như Apache Spark, Apache Airflow, Trino, MinIO và Selenium (nếu Selenium vẫn được sử dụng cho một mục đích nào đó ngoài thu thập dữ liệu, nếu không thì có thể bỏ Selenium ra khỏi đây).
+* **Giám sát toàn diện:** Triển khai cơ chế giám sát toàn bộ hệ thống bằng **Prometheus & Grafana** để đảm bảo hoạt động ổn định và phát hiện sớm các vấn đề.
+
+## 3. Các Thành phần Công nghệ
+
+| Lĩnh vực                               | Công cụ               | Phiên bản                               | Vai trò trong dự án                                                                                                                              |
+| :------------------------------------- | :-------------------- | :-------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| **Lưu trữ (Storage)** | **MySQL** | `[Phiên bản MySQL bạn đang dùng]`       | Lưu trữ dữ liệu gốc (staging) và các Data Mart đã xử lý, là nguồn dữ liệu chính cho các báo cáo.                                         |
+| **Web Frontend** | **Angular** | `14.21.3`                               | Xây dựng giao diện người dùng tương tác, hiển thị các báo cáo và dashboard.                                                              |
+| **Web Backend** | **.NET 6 (ASP.NET Core)** | `6.x`                                   | Phát triển API backend cung cấp dữ liệu cho frontend và quản lý các logic nghiệp vụ.                                                    |
+| **Công cụ phát triển Backend** | **Visual Studio** | `[Phiên bản VS bạn đang dùng]`          | Môi trường phát triển tích hợp (IDE) chính cho việc phát triển và gỡ lỗi ứng dụng .NET Core.                                            |
+| **Bộ đệm (Caching)** | **Redis** | `[Phiên bản Redis bạn đang dùng]`       | Cung cấp cơ chế bộ đệm trong backend để tăng tốc độ truy xuất dữ liệu và giảm tải cho database.                                        |
+| **Điều phối & Tự động hóa (Orchestration & Automation)** | **Apache Airflow** | `3.0.1`                                 | Lập lịch và tự động hóa các quy trình ETL hàng ngày để xử lý và cập nhật dữ liệu vào Data Mart.                                          |
+| **Tự động hóa Báo cáo (BI Automation)** | **Power BI Gateway** | `-`                                     | Đảm bảo kết nối an toàn và tự động refresh dữ liệu từ Data Mart lên Power BI Service theo lịch trình hàng ngày. (Luôn sử dụng phiên bản mới nhất từ Microsoft) |
+| **Trực quan hóa & BI (Visualization & BI)** | **Power BI** | `[Phiên bản Power BI bạn đang dùng]`    | Công cụ Business Intelligence để xây dựng các mô hình phân tích, báo cáo và dashboard trực quan từ Data Mart.                         |
+| **Giám sát (Monitoring)** | **Prometheus, Grafana** | `v3.3.0`, `11.4.4`                      | Thu thập, lưu trữ và hiển thị các chỉ số (metrics) về hiệu năng và tài nguyên của hệ thống, giúp giám sát hoạt động.                  |
+| **Containerization** | **Docker, Docker Compose** | `-`                                     | Đóng gói và quản lý toàn bộ các dịch vụ của hệ thống (nếu có), đảm bảo môi trường nhất quán và dễ dàng triển khai.                       |
+
+## 4. Luồng Dữ liệu (Data Flow)
+
+Luồng dữ liệu trong hệ thống của chúng tôi được thiết kế để thu thập, xử lý, lưu trữ và trình bày thông tin một cách hiệu quả, hỗ trợ phân tích và trực quan hóa báo cáo. Quá trình này bao gồm các giai đoạn chính sau:
+
+### 4.1. Lưu trữ Dữ liệu Gốc (Staging Area)
+
+* Dữ liệu thô sẽ được lưu trữ ban đầu trong một cơ sở dữ liệu **MySQL** tại một database chuyên dụng gọi là **`staging`**. Database này đóng vai trò là khu vực lưu trữ tạm thời cho dữ liệu thô, chờ xử lý.
+
+### 4.2. Quá trình ETL (Extract, Transform, Load) và Cập nhật Data Mart
+
+* Hàng ngày, một quá trình ETL sẽ được kích hoạt để chuyển đổi và cập nhật dữ liệu từ khu vực `staging` vào các **Data Mart**.
+* Việc này được điều phối và tự động hóa thông qua các **DAG (Directed Acyclic Graphs) của Apache Airflow**.
+* Mỗi DAG sẽ chạy theo lịch trình hàng ngày để thực thi các **procedure xử lý** đã được định nghĩa. Các procedure này chịu trách nhiệm:
+    * **Extract:** Trích xuất dữ liệu từ database `staging`.
+    * **Transform:** Thực hiện các bước làm sạch, chuẩn hóa, tổng hợp, và biến đổi dữ liệu theo yêu cầu nghiệp vụ.
+    * **Load:** Tải dữ liệu đã xử lý vào các bảng trong Data Mart, sẵn sàng cho việc phân tích.
+
+### 4.3. Phân tích và Trực quan hóa (Analytics & BI) với Power BI
+
+* Để hỗ trợ phân tích và tạo báo cáo, **Power BI** được sử dụng làm công cụ Business Intelligence (BI) chính.
+* Power BI sẽ kết nối trực tiếp với các mô hình dữ liệu **OLAP (Online Analytical Processing)** trong kho dữ liệu (Data Warehouse/Data Mart).
+* Một **Power BI Gateway** được thiết lập để tạo lịch trình refresh dữ liệu hàng ngày, đảm bảo các báo cáo luôn được cập nhật với thông tin mới nhất.
+* Sau khi refresh, các báo cáo và dashboard được phát triển trên Power BI Desktop sẽ được đẩy lên **Power BI Service**, nơi chúng có thể được xuất bản thành các liên kết công khai hoặc được chia sẻ nội bộ.
+
+### 4.4. Hiển thị Báo cáo trên Website
+
+* Các liên kết báo cáo và dashboard đã được xuất bản từ Power BI Service sẽ được **nhúng (embed)** trực tiếp vào giao diện của website hiển thị hệ thống báo cáo.
+* Điều này cho phép người dùng cuối truy cập và xem các báo cáo trực quan và tương tác thông qua giao diện web của ứng dụng, mang lại trải nghiệm người dùng liền mạch.
+
+## 5. Cấu trúc Thư mục
+
+Cấu trúc thư mục chính của dự án được tổ chức như sau:
+
+.
+├── Procedure/                  # Chứa các tập lệnh SQL (Stored Procedures) cho cơ sở dữ liệu MySQL
+│   ├── data_warehouse_procedures.sql # Các procedure xử lý cho Data Warehouse
+│   ├── olap_procedures.sql     # Các procedure liên quan đến xử lý OLAP (nếu có)
+│   ├── staging_ivy_moda_it_procedure... # Procedure cho dữ liệu staging Ivy Moda IT
+│   └── staging_ivyx_procedures.sql # Procedure cho dữ liệu staging IvyX
+├── airflow/                    # Cấu hình và tài nguyên cho Apache Airflow
+│   ├── dags/                   # Nơi chứa các file định nghĩa DAGs (.py) để điều phối quá trình ETL
+│   ├── .env                    # Các biến môi trường cho Airflow Docker Compose
+│   ├── Dockerfile              # Dockerfile để xây dựng image cho Airflow
+│   ├── docker-compose.yml      # File Docker Compose để triển khai Airflow
+│   └── requirements.txt        # Các thư viện Python yêu cầu cho Airflow
+├── source code/                # Thư mục chính chứa mã nguồn của ứng dụng
+│   ├── .vs/                    # Thư mục ẩn của Visual Studio
+│   ├── backend/                # Mã nguồn của ứng dụng Web Backend (.NET Core API)
+│   │   └── App.API/            # Dự án API chính (ví dụ: App.API.sln)
+│   │       ├── Controllers/    # Các API Controller
+│   │       ├── Models/         # Các Model dữ liệu
+│   │       ├── appsettings.json# File cấu hình của Backend
+│   │       ├── Program.cs      # Điểm khởi đầu của ứng dụng Backend
+│   │       └── ...             # Các file và thư mục khác của dự án .NET
+│   ├── frontend/               # Mã nguồn của ứng dụng Web Frontend (Angular)
+│   │   ├── src/                # Mã nguồn chính của Angular
+│   │   ├── node_modules/       # Các thư viện phụ thuộc của Node.js
+│   │   ├── angular.json        # Cấu hình dự án Angular
+│   │   ├── package.json        # Danh sách dependencies của Angular
+│   │   └── ...                 # Các file và thư mục khác của dự án Angular
+│   ├── monitor/                # (Tùy chọn: Chứa các script hoặc công cụ giám sát nếu có)
+│   ├── nssm-2.24/              # Công cụ Non-Sucking Service Manager (có thể dùng để chạy dịch vụ Windows)
+└── README.md                   # Tệp README chính của toàn bộ dự án
 ```
 
 

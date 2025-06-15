@@ -44,11 +44,10 @@ Sơ đồ dưới đây mô tả luồng hoạt động và sự tương tác gi
 | **Web Backend** | **.NET 6 (ASP.NET Core)** | `6.x` | Phát triển API backend cung cấp dữ liệu cho frontend và quản lý các logic nghiệp vụ. |
 | **Công cụ phát triển Backend** | **Visual Studio** | `[Phiên bản VS bạn đang dùng]` | Môi trường phát triển tích hợp (IDE) chính cho việc phát triển và gỡ lỗi ứng dụng .NET Core. |
 | **Bộ đệm (Caching)** | **Redis** | `[Phiên bản Redis bạn đang dùng]` | Cung cấp cơ chế bộ đệm trong backend để tăng tốc độ truy xuất dữ liệu và giảm tải cho database. |
-| **Điều phối & Tự động hóa (Orchestration & Automation)** | **Apache Airflow** | `3.0.1` | Lập lịch và tự động hóa các quy trình ETL hàng ngày để xử lý và cập nhật dữ liệu vào Data Mart. |
+| **Tự động hóa (Orchestration & Automation)** | **Apache Airflow** | `3.0.1` | Lập lịch và tự động hóa các quy trình ETL hàng ngày để xử lý và cập nhật dữ liệu vào Data Mart. |
 | **Tự động hóa Báo cáo (BI Automation)** | **Power BI Gateway** | `-` | Đảm bảo kết nối an toàn và tự động refresh dữ liệu từ Data Mart lên Power BI Service theo lịch trình hàng ngày. |
 | **Trực quan hóa & BI (Visualization & BI)** | **Power BI** | `[Phiên bản Power BI bạn đang dùng]` | Công cụ Business Intelligence để xây dựng các mô hình phân tích, báo cáo và dashboard trực quan từ Data Mart. |
-| **Giám sát (Monitoring)** | **Prometheus, Grafana** | `v3.3.0`, `11.4.4` | Thu thập, lưu trữ và hiển thị các chỉ số (metrics) về hiệu năng và tài nguyên của hệ thống, giúp giám sát hoạt động. |
-| **Containerization** | **Docker, Docker Compose** | `-` | Đóng gói và quản lý toàn bộ các dịch vụ của hệ thống (nếu có), đảm bảo môi trường nhất quán và dễ dàng triển khai. |
+
 ---
 
 ## 4. Luồng Dữ liệu (Data Flow)

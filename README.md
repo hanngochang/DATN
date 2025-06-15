@@ -2,18 +2,24 @@
 
 ---
 
-# Hệ thống Lakehouse Toàn diện (Comprehensive Lakehouse System)
+# Hệ thống Phân tích dữ liệu 
 
 ## 1. Giới thiệu
 
-Dự án này xây dựng một nền tảng dữ liệu hiện đại theo kiến trúc Lakehouse, sử dụng hoàn toàn các công cụ mã nguồn mở. Hệ thống có khả năng thu thập dữ liệu từ web (cụ thể là các bài báo từ VnExpress), xử lý, lưu trữ, và cung cấp khả năng phân tích, trực quan hóa dữ liệu một cách hiệu quả.
+Dự án này tập trung vào việc **xây dựng một hệ thống báo cáo dữ liệu hiện đại**, phục vụ nhu cầu phân tích dữ liệu kinh doanh và vận hành. Hệ thống được thiết kế để tự động hóa toàn bộ quy trình từ khâu xử lý dữ liệu đến việc tạo ra các báo cáo hàng ngày, cung cấp cái nhìn sâu sắc và kịp thời cho các hoạt động nghiệp vụ.
 
-**Mục tiêu chính:**
+**Hệ thống có khả năng:**
 
-* **End-to-End Pipeline:** Xây dựng một quy trình dữ liệu hoàn chỉnh từ khâu thu thập (Ingestion), làm sạch (Cleansing), chuyển đổi (Transformation) đến khi sẵn sàng cho phân tích (Analytics-ready).
-* **Kiến trúc Lakehouse:** Kết hợp những ưu điểm của Data Lake (lưu trữ linh hoạt, chi phí thấp) và Data Warehouse (quản lý giao dịch, chất lượng dữ liệu) bằng cách sử dụng **Apache Iceberg** làm định dạng bảng và **Project Nessie** để quản lý phiên bản dữ liệu.
-* **Hệ sinh thái mã nguồn mở:** Tận dụng sức mạnh của các công cụ hàng đầu như Apache Spark, Apache Airflow, Trino, MinIO, và Selenium.
-* **Tự động hóa & Giám sát:** Tự động hóa quy trình bằng Airflow và giám sát toàn bộ hệ thống bằng Prometheus & Grafana.
+* **Xử lý và chuyển đổi dữ liệu tự động:** Tự động hóa các bước làm sạch, chuẩn hóa và chuyển đổi dữ liệu để đảm bảo chất lượng và tính sẵn sàng cho phân tích.
+* **Lưu trữ và quản lý dữ liệu hiệu quả:** Đảm bảo dữ liệu được lưu trữ một cách có tổ chức và dễ dàng truy cập cho các mục đích báo cáo.
+* **Cung cấp khả năng phân tích và trực quan hóa mạnh mẽ:** Đảm bảo dữ liệu dễ dàng được truy vấn và biến thành các báo cáo trực quan, dễ hiểu.
+
+**Mục tiêu chính của hệ thống:**
+
+* **Tự động hóa Quy trình Báo cáo:** Xây dựng một quy trình tự động hoàn chỉnh từ khi dữ liệu sẵn sàng để xử lý, cho đến khi dữ liệu sẵn sàng cho phân tích và lên báo cáo hàng ngày.
+* **Hỗ trợ Phân tích Kinh doanh & Vận hành:** Cung cấp các báo cáo và dashboard hàng ngày giúp phân tích hiệu suất, nhận diện xu hướng và hỗ trợ ra quyết định.
+* **Sử dụng công cụ hiệu quả:** Tận dụng sức mạnh của các công cụ như Airflow, PowerBI, Angular,vv...
+
 
 ---
 
@@ -29,19 +35,20 @@ Sơ đồ dưới đây mô tả luồng hoạt động và sự tương tác gi
 
 ## 3. Các Thành phần Công nghệ
 
+## 3. Các Thành phần Công nghệ
+
 | Lĩnh vực | Công cụ | Phiên bản | Vai trò trong dự án |
 | :--- | :--- | :--- | :--- |
-| **Lưu trữ (Storage)** | **MinIO** | `RELEASE.2024-07-31T09-57-19Z` | Cung cấp S3-compatible object storage để làm Data Lake, lưu trữ dữ liệu ở các tầng Raw, Clean, và Curated. |
-| **Định dạng bảng (Table Format)** | **Apache Iceberg** | `1.9.0` | Quản lý cấu trúc dữ liệu dưới dạng bảng trên Data Lake, hỗ trợ các tính năng ACID transactions, time travel, schema evolution. |
-| **Catalog & Versioning** | **Project Nessie** | `0.104.1` | Cung cấp catalog và "Git-for-Data", cho phép thực hiện các thao tác commit, branch, merge trên dữ liệu, đảm bảo tính nhất quán. |
-| **Xử lý Dữ liệu (Processing)** | **Apache Spark** | `3.5.5` | Engine chính cho các tác vụ ETL (Extract, Transform, Load) từ Raw -> Clean và Clean -> Curated. |
-| **Điều phối (Orchestration)** | **Apache Airflow** | `3.0.1` | Lập lịch và tự động hóa các pipeline dữ liệu, từ việc trigger crawl dữ liệu đến chạy các job Spark ETL. |
-| **Thu thập Dữ liệu (Ingestion)** | **Selenium Grid** | `4.32.0` | Cụm Chrome node để thực hiện crawl dữ liệu từ trang web VnExpress một cách song song và ổn định. |
-| **Query Engine** | **Trino (PrestoSQL)** | `475` | Cho phép thực hiện các truy vấn SQL tương tác (ad-hoc) với hiệu năng cao trực tiếp trên các bảng Iceberg trong Data Lake. |
-| **Trực quan hóa (BI)** | **Metabase** | `v0.55.x` | Công cụ Business Intelligence để xây dựng dashboard, biểu đồ, trực quan hóa dữ liệu từ tầng Curated thông qua Trino. |
-| **Giám sát (Monitoring)** | **Prometheus, Grafana** | `v3.3.0`, `11.4.4` | Thu thập, lưu trữ và hiển thị các chỉ số (metrics) về hiệu năng, tài nguyên của các container và các job Spark ETL. |
-| **Containerization** | **Docker, Docker Compose** | - | Đóng gói và quản lý toàn bộ các dịch vụ của hệ thống, đảm bảo môi trường nhất quán và dễ dàng triển khai. |
-
+| **Lưu trữ (Storage)** | **MySQL** | `[Phiên bản MySQL bạn đang dùng]` | Lưu trữ dữ liệu gốc (staging) và các Data Mart đã xử lý, là nguồn dữ liệu chính cho các báo cáo. |
+| **Web Frontend** | **Angular** | `14.21.3` | Xây dựng giao diện người dùng tương tác, hiển thị các báo cáo và dashboard. |
+| **Web Backend** | **.NET 6 (ASP.NET Core)** | `6.x` | Phát triển API backend cung cấp dữ liệu cho frontend và quản lý các logic nghiệp vụ. |
+| **Công cụ phát triển Backend** | **Visual Studio** | `[Phiên bản VS bạn đang dùng]` | Môi trường phát triển tích hợp (IDE) chính cho việc phát triển và gỡ lỗi ứng dụng .NET Core. |
+| **Bộ đệm (Caching)** | **Redis** | `[Phiên bản Redis bạn đang dùng]` | Cung cấp cơ chế bộ đệm trong backend để tăng tốc độ truy xuất dữ liệu và giảm tải cho database. |
+| **Điều phối & Tự động hóa (Orchestration & Automation)** | **Apache Airflow** | `3.0.1` | Lập lịch và tự động hóa các quy trình ETL hàng ngày để xử lý và cập nhật dữ liệu vào Data Mart. |
+| **Tự động hóa Báo cáo (BI Automation)** | **Power BI Gateway** | `-` | Đảm bảo kết nối an toàn và tự động refresh dữ liệu từ Data Mart lên Power BI Service theo lịch trình hàng ngày. |
+| **Trực quan hóa & BI (Visualization & BI)** | **Power BI** | `[Phiên bản Power BI bạn đang dùng]` | Công cụ Business Intelligence để xây dựng các mô hình phân tích, báo cáo và dashboard trực quan từ Data Mart. |
+| **Giám sát (Monitoring)** | **Prometheus, Grafana** | `v3.3.0`, `11.4.4` | Thu thập, lưu trữ và hiển thị các chỉ số (metrics) về hiệu năng và tài nguyên của hệ thống, giúp giám sát hoạt động. |
+| **Containerization** | **Docker, Docker Compose** | `-` | Đóng gói và quản lý toàn bộ các dịch vụ của hệ thống (nếu có), đảm bảo môi trường nhất quán và dễ dàng triển khai. |
 ---
 
 ## 4. Luồng Dữ liệu (Data Flow)

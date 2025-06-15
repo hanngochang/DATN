@@ -27,13 +27,12 @@ Dự án này tập trung vào việc **xây dựng một hệ thống báo cáo
 
 Sơ đồ dưới đây mô tả luồng hoạt động và sự tương tác giữa các thành phần trong hệ thống.
 
-![Sơ đồ kiến trúc hệ thống Lakehouse](images/architect.png)
+![Sơ đồ kiến trúc hệ thống ](images/architect.png)
 
 
 
 ---
 
-## 3. Các Thành phần Công nghệ
 
 ## 3. Các Thành phần Công nghệ
 
@@ -81,18 +80,18 @@ Luồng dữ liệu trong hệ thống của chúng tôi được tổ chức th
 * **Trải nghiệm người dùng:** Việc này cho phép người dùng cuối truy cập và xem các báo cáo trực quan, tương tác cao mà không cần rời khỏi giao diện web của ứng dụng, mang lại trải nghiệm người dùng liền mạch và hiệu quả.
 
 ---
+## 5. Cấu trúc Thư mục
+
+```
+
+```
+
 
 ---
 
 
 ## 6. Hướng dẫn Cài đặt & Chạy
 
-
-# [Tên Dự Án Của Bạn] - Hướng dẫn Cài đặt & Chạy
-
-Hướng dẫn này cung cấp các bước chi tiết để thiết lập môi trường phát triển, cài đặt các thành phần cần thiết và khởi chạy dự án web của bạn, bao gồm cả frontend Angular và backend .NET Core API.
-
-## 6. Hướng dẫn Cài đặt & Chạy
 
 ### 6.1. Yêu cầu
 
@@ -214,42 +213,10 @@ Hướng dẫn này cung cấp các bước chi tiết để thiết lập môi 
     * Mở file này bằng **Visual Studio**.
     * Trong Visual Studio, nhấn **F5** hoặc nút **"Start Debugging"** (biểu tượng mũi tên xanh) để chạy dự án.
 
-    **Quan trọng:**
-    * Đảm bảo rằng ứng dụng backend của bạn được cấu hình để chạy và **duy trì hoạt động**, không bị thoát ngay lập tức sau khi khởi động. Kiểm tra file `Program.cs` hoặc `Startup.cs` để đảm bảo có lệnh `app.Run();` (hoặc `Host.Run();`) để duy trì máy chủ.
-    * Xác nhận cổng API backend đang chạy (theo thông tin bạn cung cấp là `http://localhost:5216`) bằng cách kiểm tra tệp cấu hình của backend (ví dụ: `appsettings.json` hoặc `App.config`).
+  
 
 
----
+## 7. Tác giả
 
-## 7. Truy cập các Giao diện
-
-| Dịch vụ | URL | Ghi chú |
-| :--- | :--- | :--- |
-| **Airflow** | `http://localhost:8888` | Giao diện điều phối, quản lý DAGs. |
-| **MinIO Console** | `http://localhost:9001` | Quản lý buckets và objects trong Data Lake. |
-| **Spark Master** | `http://localhost:8080` | Giao diện quản lý cụm Spark. |
-| **Spark Worker 1** | `http://localhost:8081` | |
-| **Spark Worker 2** | `http://localhost:8082` | |
-| **Nessie UI** | `http://localhost:19120` | Xem các commit, branch trên catalog dữ liệu. |
-| **Trino UI** | `http://localhost:8181` | Theo dõi các truy vấn, trạng thái cụm Trino. |
-| **Metabase** | `http://localhost:3001` | Xây dựng và xem dashboards. |
-| **Grafana** | `http://localhost:3000` | (User/Pass: `NguyenPhucLinh`/`NguyenPhucLinh`) - Dashboards giám sát. |
-| **Prometheus** | `http://localhost:9090` | Xem metrics và cấu hình scrape. |
-| **Alertmanager** | `http://localhost:9093` | Quản lý các cảnh báo. |
-| **Pushgateway** | `http://localhost:9091` | Xem các metrics được đẩy từ batch jobs. |
-| **Selenium Grid** | `http://localhost:4444` | Xem trạng thái của hub và các node Chrome. |
-
----
-
-## 8. Giám sát Hệ thống
-
-* **Grafana** (`http://localhost:3000`) là nơi tập trung để giám sát.
-* **cAdvisor** thu thập metrics về tài nguyên (CPU, RAM, Network) của tất cả các container và được Prometheus scrape.
-* Các job **Spark ETL** được lập trình để đẩy các metrics tùy chỉnh (thời gian chạy, số bản ghi xử lý, trạng thái thành công/thất bại) lên **Pushgateway**.
-* **Prometheus** thu thập tất cả các metrics này và **Grafana** sẽ hiển thị chúng trên các dashboard, giúp theo dõi sức khỏe và hiệu năng của toàn bộ hệ thống.
-
----
-## 9. Tác giả
-
-* **Tên:** Nguyễn Phúc Linh
-* **Email:** nguyenphuclinh1208@gmail.com
+* **Tên:** Lê Thị Hằng
+* **Email:** hangle08032003@gmail.com

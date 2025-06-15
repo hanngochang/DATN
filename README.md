@@ -39,7 +39,7 @@ Sơ đồ dưới đây mô tả luồng hoạt động và sự tương tác gi
 
 | Lĩnh vực | Công cụ | Phiên bản | Vai trò trong dự án |
 | :--- | :--- | :--- | :--- |
-| **Lưu trữ (Storage)** | **MySQL** | `[Phiên bản MySQL bạn đang dùng]` | Lưu trữ dữ liệu gốc (staging) và các Data Mart đã xử lý, là nguồn dữ liệu chính cho các báo cáo. |
+| **Lưu trữ (Storage)** | **MySQL** | `-` | Lưu trữ dữ liệu gốc (staging) và các Data Mart đã xử lý, là nguồn dữ liệu chính cho các báo cáo. |
 | **Web Frontend** | **Angular** | `14.21.3` | Xây dựng giao diện người dùng tương tác, hiển thị các báo cáo và dashboard. |
 | **Web Backend** | **.NET 6 (ASP.NET Core)** | `6.x` | Phát triển API backend cung cấp dữ liệu cho frontend và quản lý các logic nghiệp vụ. |
 | **Công cụ phát triển Backend** | **Visual Studio** | `[Phiên bản VS bạn đang dùng]` | Môi trường phát triển tích hợp (IDE) chính cho việc phát triển và gỡ lỗi ứng dụng .NET Core. |
@@ -84,133 +84,140 @@ Luồng dữ liệu trong hệ thống của chúng tôi được tổ chức th
 
 ---
 
-## 5. Cấu trúc Thư mục
 
-```
-src/
-├── Apache_Spark/         # Cấu hình và ứng dụng Spark
-│   ├── apps/             # Các kịch bản Python cho Spark (ETL, tạo model)
-│   ├── docker_client/    # Dockerfile và requirements cho image Spark client (dùng trong Airflow)
-│   └── spark.yml         # File docker-compose cho cụm Spark
-├── MinIO/                # Cấu hình MinIO
-├── Monitoring/           # Cấu hình cho Prometheus, Grafana, Alertmanager
-├── Nessie/               # Cấu hình cho Nessie và DB backend (Postgres)
-├── Trino/                # Cấu hình cho Trino (coordinator, worker, catalogs)
-├── Web_scraping/         # Mã nguồn cho việc thu thập dữ liệu
-│   ├── CrawlJob/         # Logic chính của job crawl
-│   ├── CrawlPackage/     # Các hàm tiện ích để crawl (lấy link, nội dung)
-│   ├── SeleniumPackage/  # Các hàm tiện ích để điều khiển Selenium
-│   └── chrome.yml        # File docker-compose cho Selenium Grid
-├── airflow/              # Cấu hình, DAGs và plugins cho Airflow
-│   ├── dags/             # Nơi chứa các file định nghĩa DAG
-│   └── config/           # Các file cấu hình của Airflow
-├── metabase/             # Cấu hình cho Metabase
-├── docker-compose-main.yml # File compose chính, định nghĩa network chung
-└── .env.example          # File mẫu cho các biến môi trường
-```
+## 6. Hướng dẫn Cài đặt & Chạy
 
----
+
+# [Tên Dự Án Của Bạn] - Hướng dẫn Cài đặt & Chạy
+
+Hướng dẫn này cung cấp các bước chi tiết để thiết lập môi trường phát triển, cài đặt các thành phần cần thiết và khởi chạy dự án web của bạn, bao gồm cả frontend Angular và backend .NET Core API.
 
 ## 6. Hướng dẫn Cài đặt & Chạy
 
 ### 6.1. Yêu cầu
-* Docker
-* Docker Compose
-* Hệ điều hành Linux (khuyến nghị, để dễ dàng quản lý `uid` của user)
-* Git
+
+Đảm bảo bạn đã cài đặt các công cụ sau trên hệ thống của mình:
+
+* **Node.js** (để chạy Angular và npm)
+* **.NET SDK 6** (để phát triển và chạy backend .NET Core)
+* **MySQL Server** (hệ quản trị cơ sở dữ liệu)
+* **Redis Server** (máy chủ bộ đệm)
+* **Git** (để clone mã nguồn dự án)
+* **Visual Studio** (hoặc Visual Studio Code, để phát triển backend và frontend)
 
 ### 6.2. Cấu hình Môi trường
 
-1.  **Clone repository:**
-    ```bash
-    git clone <your-repo-url>
-    cd lakehouse-project
-    ```
+#### 6.2.1. Cài đặt Angular 14.21.3 (qua NVM)
 
-2.  **Tạo file `.env`:**
-    Sao chép file `.env.example` thành `.env` và tùy chỉnh các giá trị bên trong.
+1.  **Tải NVM for Windows:**
+    * Truy cập: [Releases · coreybutler/nvm-windows](https://github.com/coreybutler/nvm-windows/releases)
+    * Tải xuống file `nvm-setup.zip` và cài đặt theo hướng dẫn.
+
+2.  **Chạy script cài đặt Node (trong PowerShell với quyền Administrator):**
+    * Mở **PowerShell với quyền Administrator**.
+    * Chạy các lệnh sau:
+        ```powershell
+        nvm install 14.21.3
+        nvm use 14.21.3
+        ```
+    * Kiểm tra phiên bản Node.js và npm: `node -v` và `npm -v`.
+
+#### 6.2.2. Cài đặt Angular CLI
+
+* Mở Command Prompt hoặc PowerShell (không cần quyền admin).
+* Cài đặt Angular CLI phiên bản 12.0.1:
     ```bash
-    cp .env.example .env
+    npm install -g @angular/cli@12.0.1
     ```
-    **QUAN TRỌNG:** Trên Linux, hãy chạy lệnh sau để `AIRFLOW_UID` được gán đúng với user của bạn, tránh lỗi permission.
+    *Lưu ý: Hãy đảm bảo phiên bản Angular CLI này tương thích với phiên bản Angular bạn định sử dụng trong dự án (Angular 14.21.3).*
+
+#### 6.2.3. Cài đặt .NET 6, ASP.NET và Visual Studio
+
+1.  **Cài đặt .NET 6 Runtime (x64):**
+    * Truy cập: [Download .NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+    * Tải xuống và cài đặt **.NET Desktop Runtime 6.0.x (x64)**.
+
+2.  **Cài đặt Visual Studio:**
+    * Truy cập: [Download Visual Studio Tools](https://visualstudio.microsoft.com/downloads/)
+    * Tải xuống và chạy Visual Studio Installer.
+    * Trong Visual Studio Installer, chọn **"Modify"** (nếu đã cài đặt) hoặc "Install" (nếu chưa).
+    * Chọn workload **"ASP.NET and web development"**.
+    * Nhấn "Install" hoặc "Modify" để hoàn tất.
+
+#### 6.2.4. Cài đặt Redis
+
+* Truy cập: [Releases · tporadowski/redis](https://github.com/tporadowski/redis/releases)
+* Tải xuống phiên bản cài đặt (ví dụ: `.msi`) và cài đặt Redis Server.
+* Đảm bảo dịch vụ Redis đang chạy sau khi cài đặt.
+
+#### 6.2.5. Cài đặt Git
+
+* Truy cập: [Git - Downloads](https://git-scm.com/downloads)
+* Tải xuống và cài đặt Git cho hệ điều hành của bạn.
+
+#### 6.2.6. Clone Repository
+
+1.  **Lấy URL Clone:** Lấy URL clone HTTP từ kho lưu trữ GitLab của bạn (ví dụ: `http://gitlab.corp360.vn/project/hallure-suggestion/-/tree/dev_report`).
+
+2.  **Thực hiện Clone:** Mở Command Prompt (CMD) hoặc PowerShell tại thư mục bạn muốn lưu dự án.
     ```bash
-    echo "AIRFLOW_UID=$(id -u)" >> .env
+    git clone -b dev_report {dán_url_clone_của_bạn_vào_đây}
     ```
-    Hãy kiểm tra và đảm bảo các mật khẩu, access key trong file `.env` được đặt một cách an toàn.
+    *Lệnh này sẽ tải toàn bộ mã nguồn về máy của bạn và tự động chuyển sang nhánh `dev_report`.*
+
+#### 6.2.7. Cấu hình VS Code (Tùy chọn, khuyến nghị)
+
+* **Mở User Settings JSON:**
+    * Trong VS Code, nhấn `Ctrl + Shift + P`.
+    * Gõ và chọn `Preferences: Open User Settings (JSON)`.
+* **Thêm cấu hình NODE_OPTIONS:**
+    * Thêm đoạn cấu hình sau vào tệp `settings.json` của bạn để tăng bộ nhớ cho Node.js, giúp tránh lỗi khi biên dịch Angular:
+        ```json
+        {
+            "terminal.integrated.env.windows": {
+                "NODE_OPTIONS": "--max_old_space_size=4096"
+            }
+        }
+        ```
+        *Đảm bảo cú pháp JSON chính xác (dấu phẩy, ngoặc nhọn).*
 
 ### 6.3. Khởi chạy Hệ thống
 
-Sử dụng `docker-compose` để khởi chạy toàn bộ các dịch vụ. Lệnh này sẽ đọc file `docker-compose-main.yml` và tất cả các file `*.yml` bên trong các thư mục con của `src`.
+#### 6.3.1. Chạy Frontend (Angular)
 
-```bash
-docker-compose \
-  -f src/docker-compose-main.yml \
-  -f src/MinIO/MinIO.yml \
-  -f src/Nessie/nessie.yml \
-  -f src/Apache_Spark/spark.yml \
-  -f src/Trino/trino.yml \
-  -f src/Web_scraping/chrome.yml \
-  -f src/airflow/airflow.yml \
-  -f src/Monitoring/monitoring.yml \
-  -f src/metabase/metabase.yml \
-  up -d
-```
-
-Để dừng hệ thống:
-```bash
-# (Chạy lệnh tương tự với 'down' thay vì 'up -d')
-docker-compose ... down
-```
-
-### 6.4. Thiết lập Ban đầu (First-time setup)
-
-Sau khi các container đã chạy, bạn cần thực hiện một số bước thiết lập ban đầu.
-
-1.  **Tạo Bucket trên MinIO:**
-    * Truy cập MinIO Console: `http://localhost:9001`
-    * Đăng nhập với `MINIO_ROOT_USER` và `MINIO_ROOT_PASSWORD` trong file `.env`.
-    * Tạo các buckets sau:
-        * `raw-news-lakehouse`
-        * `clean-news-lakehouse`
-        * `curated-news-lakehouse`
-
-2.  **Thiết lập Airflow:**
-    * Truy cập Airflow UI: `http://localhost:8888`
-    * Đăng nhập với user/password bạn đã cấu hình trong `.env` (`_AIRFLOW_WWW_USER_USERNAME`, `_AIRFLOW_WWW_USER_PASSWORD`).
-    * Vào **Admin -> Connections**, tạo connection cho MinIO:
-        * **Conn Id:** `my_lakehouse_conn`
-        * **Conn Type:** `Amazon S3`
-        * **AWS Access Key ID:** (nhập access key từ file `.env`)
-        * **AWS Secret Access Key:** (nhập secret key từ file `.env`)
-        * **Extra:** `{"host": "http://minio1:9000"}`
-    * Vào **Admin -> Pools**, tạo một pool:
-        * **Pool:** `selenium_pool`
-        * **Slots:** `3` (hoặc bằng số lượng chrome-node bạn chạy)
-
-3.  **Tạo Schema cho Lakehouse và Bảng `dim_date`:**
-    Chạy các script Spark sau thông qua `docker exec`.
-
+1.  **Điều hướng đến thư mục frontend:**
     ```bash
-    # Lấy ID của container spark-master
-    SPARK_MASTER_ID=$(docker ps -qf "name=spark-master")
+    cd {tên_thư_mục_dự_án}/frontend
+    ```
+    (Ví dụ: `cd DATN/frontend` nếu bạn đã clone vào thư mục `DATN`)
 
-    # Chạy script tạo schema cho Clean Zone
-    docker exec -it $SPARK_MASTER_ID /opt/spark/bin/spark-submit --master spark://spark-master:7077 --deploy-mode client --jars /opt/spark/apps/jars/hadoop-aws-3.3.4.jar,/opt/spark/apps/jars/aws-java-sdk-bundle-1.12.783.jar,/opt/spark/apps/jars/iceberg-spark-runtime-3.5_2.12-1.9.0.jar,/opt/spark/apps/jars/nessie-spark-extensions-3.5_2.12-0.103.5.jar /opt/spark/apps/clean_data_model.py
-
-    # Chạy script tạo schema cho Curated Zone
-    docker exec -it $SPARK_MASTER_ID /opt/spark/bin/spark-submit --master spark://spark-master:7077 --deploy-mode client --jars /opt/spark/apps/jars/hadoop-aws-3.3.4.jar,/opt/spark/apps/jars/aws-java-sdk-bundle-1.12.783.jar,/opt/spark/apps/jars/iceberg-spark-runtime-3.5_2.12-1.9.0.jar,/opt/spark/apps/jars/nessie-spark-extensions-3.5_2.12-0.103.5.jar /opt/spark/apps/curated_data_model.py
-
-    # Chạy script điền dữ liệu cho bảng dim_date
-    docker exec -it $SPARK_MASTER_ID /opt/spark/bin/spark-submit --master spark://spark-master:7077 --deploy-mode client --jars /opt/spark/apps/jars/hadoop-aws-3.3.4.jar,/opt/spark/apps/jars/aws-java-sdk-bundle-1.12.783.jar,/opt/spark/apps/jars/iceberg-spark-runtime-3.5_2.12-1.9.0.jar,/opt/spark/apps/jars/nessie-spark-extensions-3.5_2.12-0.103.5.jar /opt/spark/apps/dim_date.py
+2.  **Cài đặt các gói phụ thuộc (chỉ lần đầu tiên):**
+    ```bash
+    npm install
     ```
 
-### 6.5. Chạy Pipeline
+3.  **Khởi động Angular Development Server:**
+    ```bash
+    ng s
+    ```
+    * Lệnh này sẽ biên dịch ứng dụng Angular và khởi chạy máy chủ phát triển. Mở trình duyệt của bạn và truy cập: `http://localhost:4200`.
 
-1.  Truy cập Airflow UI (`http://localhost:8888`).
-2.  Tìm DAG `vnexpress_daily_crawl_range_day_dag`.
-3.  Bật (Un-pause) DAG.
-4.  Trigger DAG thủ công bằng nút "Play", bạn có thể tùy chỉnh ngày bắt đầu/kết thúc trong mục "Config". Nếu không, DAG sẽ chạy theo lịch (`0 1 * * *` - 1 giờ sáng hàng ngày) để crawl dữ liệu 7 ngày gần nhất.
-5.  Sau khi DAG crawl chạy xong và thành công, các DAG ETL `ETL_raw_zone_to_clean_zone` và `ETL_clean_zone_to_curated_zone` sẽ tự động được trigger.
+#### 6.3.2. Chạy Backend (.NET Core API)
+
+1.  **Điều hướng đến thư mục backend:**
+    ```bash
+    cd {tên_thư_mục_dự_án}/backend/App.API # Hoặc đường dẫn chính xác tới file .sln của bạn
+    ```
+
+2.  **Mở và Chạy dự án trong Visual Studio:**
+    * Tìm file `App.API.sln` (hoặc tên tương ứng của solution file) trong thư mục backend.
+    * Mở file này bằng **Visual Studio**.
+    * Trong Visual Studio, nhấn **F5** hoặc nút **"Start Debugging"** (biểu tượng mũi tên xanh) để chạy dự án.
+
+    **Quan trọng:**
+    * Đảm bảo rằng ứng dụng backend của bạn được cấu hình để chạy và **duy trì hoạt động**, không bị thoát ngay lập tức sau khi khởi động. Kiểm tra file `Program.cs` hoặc `Startup.cs` để đảm bảo có lệnh `app.Run();` (hoặc `Host.Run();`) để duy trì máy chủ.
+    * Xác nhận cổng API backend đang chạy (theo thông tin bạn cung cấp là `http://localhost:5216`) bằng cách kiểm tra tệp cấu hình của backend (ví dụ: `appsettings.json` hoặc `App.config`).
+
 
 ---
 

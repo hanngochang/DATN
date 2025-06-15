@@ -1,0 +1,8 @@
+schema,procedure,param1,param2,param3
+staging_ivy_moda,etl_job_don_hang_webapp_dat,ip_fromDate date, ip_toDate date,
+staging_ivy_moda,etl_job_don_hang_tmdt_dat,ip_fromDate date, ip_toDate date,
+staging_ivy_moda,etl_job_don_hang_ivy,ip_fromDate date, ip_toDate date,
+staging_ivy_moda,etl_job_don_hang_hoan,ip_fromDate date, ip_toDate date,
+staging_ivy_moda,etl_job_so_luong_san_pham_dat,ip_fromDate date, ip_toDate date,
+staging_ivy_moda,etl_job_so_luong_san_pham_ivy,ip_fromDate date, ip_toDate date,
+staging_ivy_moda,etl_job_chi_phi_marketing,ip_fromDate DATE, ip_toDate DATE,

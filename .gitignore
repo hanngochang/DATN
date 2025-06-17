@@ -6,6 +6,11 @@ publish/
 # PostgreSQL data
 airflow/postgres-data/
 
+# Power BI dashboards - ignore all except 3 files
+*.pbix
+!dashboard/Dashboard báo cáo vận hành - AMS3.pbix
+!dashboard/Dashboard chỉ số đơn hàng.pbix
+!dashboard/Ivy monitoring.pbix
 
 
 # VS project settings and logs

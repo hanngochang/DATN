@@ -95,6 +95,7 @@ Luồng dữ liệu trong hệ thống của chúng tôi được tổ chức th
 │   ├── Dockerfile              # Dockerfile để xây dựng image cho Airflow
 │   ├── docker-compose.yml      # File Docker Compose để triển khai Airflow
 │   └── requirements.txt        # Các thư viện Python yêu cầu cho Airflow
+├── dashboard/                # Các báo cáo phân tích kinh doanh và vận hành
 ├── source code/                # Thư mục chính chứa mã nguồn của ứng dụng
 │   ├── .vs/                    # Thư mục ẩn của Visual Studio
 │   ├── backend/                # Mã nguồn của ứng dụng Web Backend (.NET Core API)

@@ -6,8 +6,7 @@ publish/
 # PostgreSQL data
 airflow/postgres-data/
 
-# Power BI dashboards
-*.pbix
+
 
 # VS project settings and logs
 *.user

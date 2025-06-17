@@ -27,7 +27,7 @@ Dự án này tập trung vào việc **xây dựng một hệ thống báo cáo
 
 Sơ đồ dưới đây mô tả luồng hoạt động và sự tương tác giữa các thành phần trong hệ thống.
 
-![Sơ đồ kiến trúc hệ thống ](images/732850c2f9984ec61789.jpg)
+![Sơ đồ kiến trúc hệ thống ](732850c2f9984ec61789.jpg)
 
 
 
